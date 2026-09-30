@@ -61,6 +61,18 @@ const brandCards = [
     description: "Alta confeitaria · Bolos de autor",
     color: "text-[#967BB6]",
   },
+  {
+    icon: "☕",
+    name: "Cafe Arcadas do Jardim",
+    description: "Pastelaria & cafe · Atouguia da Baleia",
+    color: "text-[#294839]",
+  },
+  {
+    icon: "🌾",
+    name: "Pastelaria Lutece",
+    description: "Fabrico artesanal · Oeiras",
+    color: "text-[#0f1c2e]",
+  },
 ];
 
 const eventCards = [

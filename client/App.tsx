@@ -11,6 +11,8 @@ import Contacto from "./pages/Contacto";
 import Delicias from "./pages/Delicias";
 import FoodTruck from "./pages/FoodTruck";
 import Atelie from "./pages/Atelie";
+import Arcadas from "./pages/Arcadas";
+import Lutece from "./pages/Lutece";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
@@ -27,6 +29,8 @@ const App = () => (
           <Route path="/delicias" element={<Delicias />} />
           <Route path="/food-truck" element={<FoodTruck />} />
           <Route path="/atelie" element={<Atelie />} />
+          <Route path="/arcadas" element={<Arcadas />} />
+          <Route path="/lutece" element={<Lutece />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

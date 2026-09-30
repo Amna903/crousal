@@ -36,7 +36,13 @@ const WhatsAppSvgIcon = () => (
 
 export default function Index() {
   const g = useContent("global");
-  const footerBrands = parseContentJson<string[]>(g.home_footer_brands_json, ["Delicias da Madalena", "Food Truck", "Atelie de Doces"]);
+  const footerBrands = parseContentJson<string[]>(g.home_footer_brands_json, [
+    "Delicias da Madalena",
+    "Food Truck",
+    "Atelie de Doces",
+    "Cafe Arcadas do Jardim",
+    "Pastelaria Lutece",
+  ]);
   const footerCompany = parseContentJson<string[]>(g.home_footer_company_json, ["Sobre nos", "Contacto", "Carreiras", "Privacidade"]);
   const footerBrandLinks = parseContentJson<Array<{ label: string; href: string }>>(g.home_footer_brands_links_json, footerBrands.map((label) => ({ label, href: "#" })));
   const footerCompanyLinks = parseContentJson<Array<{ label: string; href: string }>>(g.home_footer_company_links_json, footerCompany.map((label) => ({ label, href: "#" })));
@@ -94,7 +100,7 @@ export default function Index() {
               className="mt-6 font-inter text-base font-light leading-[1.8] text-dlm-muted"
               content={
                 g.home_footer_description ??
-                "Uma holding dedicada à excelência artesanal, unindo três marcas na arte da pastelaria, confeitaria e eventos."
+                "Uma holding dedicada à excelência artesanal, unindo marcas na arte da pastelaria, confeitaria e eventos."
               }
             />
 

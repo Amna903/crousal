@@ -39,7 +39,7 @@ export default function HeroSection() {
           </h1>
           <p className="font-cormorant font-normal text-dlm-gold tracking-[10px] uppercase"
              style={{ fontSize: "clamp(18px, 3.5vw, 40px)" }}>
-            {c.hero_subheading ?? "The Power of Three"}
+            {c.hero_subheading ?? "The Power of Many"}
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export default function HeroSection() {
         <RichTextContent
           className="mb-12 font-cormorant font-light italic text-white/90"
           content={
-            c.hero_description ?? "Três experiências distintas · Uma holding de excelência"
+            c.hero_description ?? "Cinco experiências distintas · Uma holding de excelência"
           }
           style={{ fontSize: "clamp(18px, 2.5vw, 29px)" }}
         />

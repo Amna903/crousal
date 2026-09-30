@@ -42,6 +42,8 @@ export default function Navbar() {
     { label: "Food Truck", href: "/food-truck" },
     { label: "Delícias", href: "/delicias" },
     { label: "Ateliê", href: "/atelie" },
+    { label: "Arcadas", href: "/arcadas" },
+    { label: "Lutèce", href: "/lutece" },
     { label: "Contacto", href: "/contacto" },
   ]);
 
