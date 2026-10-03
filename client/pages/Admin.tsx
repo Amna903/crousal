@@ -310,6 +310,7 @@ const PAGE_FIELDS: Record<PageId, PageField[]> = {
     { key: "gallery_items_json", label: "Gallery Items JSON", multiline: true },
     { key: "showcase_title", label: "Showcase Title" },
     { key: "showcase_quote", label: "Showcase Quote" },
+    { key: "showcase_json", label: "Showcase Items JSON", multiline: true },
     { key: "testimonials_label", label: "Testimonials Label" },
     { key: "testimonials_title", label: "Testimonials Title" },
     { key: "testimonials_json", label: "Testimonials JSON", multiline: true },
@@ -1333,9 +1334,20 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
 
   useEffect(() => {
     fetch("/api/content")
-      .then((response) => response.json())
-      .then((data: AllContent) => setAllContent(data))
-      .catch(() => toast({ title: "Failed to load content", variant: "destructive" }));
+      .then(async (response) => {
+        const data = (await response.json()) as AllContent & { error?: string };
+        if (!response.ok || data.error) {
+          throw new Error(data.error ?? "Failed to load content");
+        }
+        setAllContent(data);
+      })
+      .catch((error: unknown) =>
+        toast({
+          title: "Failed to load content",
+          description: error instanceof Error ? error.message : "Unknown error",
+          variant: "destructive",
+        })
+      );
   }, [toast]);
 
   const handleChange = (page: PageId, key: string, value: string) => {

@@ -704,7 +704,7 @@ async function insertMissingDefaults() {
   const supabase = getSupabaseAdminClient();
   const { data: existingRows, error: existingError } = await supabase
     .from("content")
-    .select("page, key");
+    .select("page, key, value");
 
   if (existingError) {
     throw new Error(
@@ -712,17 +712,29 @@ async function insertMissingDefaults() {
     );
   }
 
-  const existingKeys = new Set(
-    (existingRows ?? []).map((row) => `${row.page}:${row.key}`)
+  const existingValues = new Map(
+    (existingRows ?? []).map((row) => [`${row.page}:${row.key}`, row.value])
   );
-  const missingRows = defaults
-    .filter(([page, key]) => !existingKeys.has(`${page}:${key}`))
-    .map(([page, key, value]) => ({
-      page,
-      key,
-      value,
-      updated_at: new Date().toISOString(),
-    }));
+  const rowsToSeed = defaults.filter(([page, key]) => {
+    const existingValue = existingValues.get(`${page}:${key}`);
+
+    if (existingValue === undefined) {
+      return true;
+    }
+
+    // These pages were introduced after their empty CMS rows were created.
+    // Repair those placeholders once without overwriting intentional edits.
+    return (
+      (page === "arcadas" || page === "lutece") &&
+      (existingValue ?? "").trim() === ""
+    );
+  });
+  const missingRows = rowsToSeed.map(([page, key, value]) => ({
+    page,
+    key,
+    value,
+    updated_at: new Date().toISOString(),
+  }));
 
   if (missingRows.length === 0) {
     return;
@@ -730,7 +742,7 @@ async function insertMissingDefaults() {
 
   const { error: insertError } = await supabase
     .from("content")
-    .insert(missingRows);
+    .upsert(missingRows, { onConflict: "page,key" });
 
   if (insertError) {
     throw new Error(
